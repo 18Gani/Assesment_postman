@@ -1,0 +1,182 @@
+info:
+  _postman_id: 072b546c-4937-4b62-a636-6ee0b7dbae19
+  name: Swagger assesment for API testing
+  description: Swagger specification for API testing
+  schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+  _exporter_id: '17412308'
+item:
+  - name: users
+    item:
+      - name: '{id}'
+        item:
+          - name: Create a new user
+            request:
+              method: PUT
+              header:
+                - key: Content-Type
+                  value: application/json
+                - key: Accept
+                  value: application/json
+              body:
+                mode: raw
+                raw: |-
+                  {
+                    "gender": "mollit",
+                    "email": "j-TN@laibHximXEjT.ms",
+                    "status": "Excepteur in in elit",
+                    "id": 9218395,
+                    "name": "dolore incididunt sint"
+                  }
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{baseUrl}}/users/:id'
+                host:
+                  - '{{baseUrl}}'
+                path:
+                  - users
+                  - ':id'
+                variable:
+                  - key: id
+                    value: '-65735137'
+                    description: (Required) The user id that needs to be deleted
+            response: []
+          - name: Delete user
+            event:
+              - listen: test
+                script:
+                  exec:
+                    - "pm.test(\"Status test\", function () {\r"
+                    - "    pm.response.to.have.status(401);\r"
+                    - "});\r"
+                    - "pm.test(\"Body matches string\", function () {\r"
+                    - "    pm.expect(pm.response.text()).to.include(\"Authentication failed\");\r"
+                    - "});\r"
+                    - "pm.test(\"Response time is less than 200ms\", function () {\r"
+                    - "    pm.expect(pm.response.responseTime).to.be.below(2000);\r"
+                    - "});\r"
+                    - "pm.test(\"Content-Type is present\", function () {\r"
+                    - "    pm.response.to.have.header(\"Content-Type\");\r"
+                    - "});\r"
+                    - ''
+                  type: text/javascript
+            request:
+              auth:
+                type: oauth2
+                oauth2:
+                  - key: client_authentication
+                    value: body
+                    type: string
+                  - key: addTokenTo
+                    value: header
+                    type: string
+                  - key: tokenType
+                    value: ''
+                    type: string
+                  - key: tokenName
+                    value: ''
+                    type: string
+                  - key: headerPrefix
+                    value: bearer
+                    type: string
+                  - key: redirect_uri
+                    value: ''
+                    type: string
+                  - key: accessTokenUrl
+                    value: ''
+                    type: string
+                  - key: authUrl
+                    value: ''
+                    type: string
+                  - key: grant_type
+                    value: authorization_code
+                    type: string
+                  - key: useBrowser
+                    value: false
+                    type: boolean
+              method: DELETE
+              header:
+                - key: Authorization
+                  value: ''
+                  type: text
+                  disabled: true
+              url:
+                raw: '{{baseUrl}}/users/:id'
+                host:
+                  - '{{baseUrl}}'
+                path:
+                  - users
+                  - ':id'
+                variable:
+                  - key: id
+                    value: '2302'
+                    description: (Required) The user id that needs to be deleted
+              description: This can only be done by the logged in user.
+            response: []
+      - name: Create a new user
+        event:
+          - listen: test
+            script:
+              exec:
+                - "pm.test(\"Status test\", function () {\r"
+                - "    pm.response.to.have.status(401);\r"
+                - "});\r"
+                - "pm.test(\"Body matches string\", function () {\r"
+                - "    pm.expect(pm.response.text()).to.include(\"Authentication failed\");\r"
+                - "});\r"
+                - "pm.test(\"Response time is less than 200ms\", function () {\r"
+                - "    pm.expect(pm.response.responseTime).to.be.below(2000);\r"
+                - "});\r"
+                - "pm.test(\"Content-Type is present\", function () {\r"
+                - "    pm.response.to.have.header(\"Content-Type\");\r"
+                - "});\r"
+                - ''
+              type: text/javascript
+        request:
+          auth:
+            type: noauth
+          method: POST
+          header:
+            - key: Content-Type
+              value: application/json
+            - key: Authorization
+              value: a245aff1a147790dac11e3c93c450350a952cf65e7631ae6a61a917d0b6e24d3
+              type: text
+          body:
+            mode: raw
+            raw: |-
+              {
+                          "id": 235,
+                          "name": "Gan",
+                          "email": "gan@pollich.info",
+                          "gender": "male",
+                          "status": "inactive"
+                      }
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{baseUrl}}/users'
+            host:
+              - '{{baseUrl}}'
+            path:
+              - users
+        response: []
+      - name: List Users
+        request:
+          method: GET
+          header:
+            - key: Accept
+              value: application/json
+          url:
+            raw: '{{baseUrl}}/users'
+            host:
+              - '{{baseUrl}}'
+            path:
+              - users
+        response: []
+variable:
+  - key: baseUrl
+    value: https://gorest.co.in/public/v1
+    type: string
